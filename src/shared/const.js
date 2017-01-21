@@ -1,5 +1,11 @@
-/* Populated by react-webpack-redux:action */
-/* eslint import/prefer-default-export: "off" */
+
 export const ACTIONS = {
-  SET_VISIBILITY_FILTER: 'SET_VISIBILITY_FILTER'
+  SEARCH: 'SEARCH',
+  SEARCH_CLEAR: 'CLEAR_SEARCH',
+  SEARCHTERM_CHANGED: 'SEARCHTERM_CHANGED',
+  SEARCH_COMPLETE: 'SEARCH_COMPLETE',
+
+  REQUESTING_DATA: 'REQUESTING_DATA',
+
+  SET_ACTIVE_STOCK: 'SET_ACTIVE_STOCK'
 };

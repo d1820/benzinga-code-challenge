@@ -1,16 +1,13 @@
 import { ACTIONS } from 'shared/const';
 
-function vFilter(state = 'SHOW', action) {
-  switch (action.type) {
-    case ACTIONS.SET_VISIBILITY_FILTER:
-      return state;
-    default:
-      return state;
-  }
-}
 
-export default function stocks(state = {}, action) {
+export function setActiveStock(searchTerm, stock) {
+  let stockItem = null;
+  if (stock[searchTerm]) {
+    stockItem = stock[searchTerm];
+  }
   return {
-    vFilter: vFilter('SHOW', action)
+    type: ACTIONS.SET_ACTIVE_STOCK,
+    stock: stockItem
   };
 }
