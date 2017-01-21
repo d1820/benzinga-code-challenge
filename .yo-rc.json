@@ -1,0 +1,9 @@
+{
+  "generator-react-webpack": {
+    "appName": "benzinga",
+    "style": "less",
+    "cssmodules": true,
+    "postcss": true,
+    "generatedWithVersion": 4
+  }
+}
