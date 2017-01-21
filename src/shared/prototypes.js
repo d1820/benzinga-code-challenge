@@ -6,8 +6,4 @@ Object.defineProperty(Object.prototype, 'getJson', {
   enumerable: false
 });
 
-// Object.prototype.getJson = function getJson() {
-//   return JSON.stringify(this);
-// };
-
 

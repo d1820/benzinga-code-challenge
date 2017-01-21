@@ -1,9 +1,9 @@
 {
   "generator-react-webpack": {
-    "appName": "benzinga",
+    "appName": "benzinga-code-challenge",
     "style": "less",
-    "cssmodules": true,
-    "postcss": true,
+    "cssmodules": false,
+    "postcss": false,
     "generatedWithVersion": 4
   }
 }

@@ -8,7 +8,8 @@
  */
 /* Populated by react-webpack-redux:reducer */
 import { combineReducers } from 'redux';
-import search from './searchReducer';
+import search from 'components/search/searchReducer';
+import search from 'components/search/searchReducer';
 
 const reducers = {
   search
