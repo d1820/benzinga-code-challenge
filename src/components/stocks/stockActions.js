@@ -24,13 +24,13 @@ export function buyStockComplete(updatedPortfolio) {
 
 export function buyStock(stock, quantity) {
   return function (dispatch, getState) {
-    const state = getState();
+    const state = getState().stocks;
 
     const totalcost = quantity * stock.askPrice;
     const updatedPortfolio = Object.assign({}, state, {
       portfolio: {
-        cash: state.stocks.portfolio.cash - totalcost,
-        myStocks: [...state.stocks.portfolio.myStocks, createStockItem(stock, quantity)]
+        cash: state.portfolio.cash - totalcost,
+        myStocks: [...state.portfolio.myStocks, createStockItem(stock, quantity)]
       }
     });
     sessionManager.save('portfolio', updatedPortfolio);
