@@ -1,10 +1,9 @@
-import React from 'react';
-import { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import StockValidator from './stockValidators';
 import './stocks.less';
 
 
-class StockView extends React.Component {
+class StockView extends Component {
   constructor(props) {
     super(props);
 

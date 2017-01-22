@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
+import { stockActions } from 'actions';
 import component from './StockView';
-import { buyStock, sellStock } from './stockActions';
+
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -13,15 +14,15 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onPropertyChanged: (value) => {      
+    onPropertyChanged: (value) => {
       console.log("quantity: " + value);
       //dispatch(searchTermChanged(value));
     },
     onBuyClick: (stock, quantity) => {
-      dispatch(buyStock(stock, quantity));
+      dispatch(stockActions.buyStock(stock, quantity));
     },
     onSellClick: (stock, quantity) => {
-      dispatch(sellStock(stock, quantity));
+      dispatch(stockActions.sellStock(stock, quantity));
     }
   };
 };

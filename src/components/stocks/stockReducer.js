@@ -1,5 +1,5 @@
 import { ACTIONS } from 'shared/const';
-import { createStockItem } from './stockFactory';
+
 
 const initialState = {
   portfolio: {
@@ -17,13 +17,13 @@ export default function stock(state = initialState, action) {
       return Object.assign({}, state, {
         stock: action.stock
       });
-    case ACTIONS.BUY_STOCK:
-      const totalcost = action.quantity * action.stock.askPrice;
+    case ACTIONS.BUY_STOCK_COMPLETE:
       return Object.assign({}, state, {
-        portfolio: {
-          cash: state.portfolio.cash - totalcost,
-          myStocks: [...state.portfolio.myStocks, createStockItem(action.stock, action.quantity)]
-        }
+        portfolio: action.updatedPortfolio
+      });
+    case ACTIONS.LOAD_PORTFOLIO_COMPLETE:
+      return Object.assign({}, state, {
+        portfolio: action.portfolio
       });
     default:
       return state;

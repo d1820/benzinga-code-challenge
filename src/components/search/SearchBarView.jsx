@@ -1,16 +1,25 @@
-import React from 'react';
-import { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import './searchbar.less';
 
-class SearchBarView extends React.Component {
+class SearchBarView extends Component {
   constructor(props) {
     super(props);
 
     // This binding is necessary to make `this` work in the callback
     this.searchClick = this.searchClick.bind(this);
+    this.onSearchTextChange = this.onSearchTextChange.bind(this);
+    this.state = {
+      searchTerm: props.searchTerm
+    };
+  }
+
+  onSearchTextChange(evt) {
+    this.setState({
+      searchTerm: evt.target.value
+    });
   }
   searchClick() {
-    this.props.onSearchClick(this.props.searchTerm);
+    this.props.onSearchClick(this.state.searchTerm);
   }
   render() {
     const props = this.props;
@@ -19,11 +28,11 @@ class SearchBarView extends React.Component {
         <h1>Hello, {props.searchTerm}</h1>
 
         <div className="form-group">
-          <label htmlFor="itemtitle">Title</label>
-          <input type="text" id="itemtitle" className="form-control" placeholder="Title" value={props.searchTerm} onChange={(evt) => { props.onPropertyChanged(evt.target.value); } } />
+          <label htmlFor="itemtitle">Search</label>
+          <input type="text" id="searchterm" className="form-control" placeholder="Symbol" value={this.state.searchTerm} onChange={this.onSearchTextChange} />
         </div>
 
-        <button className="btn btn-primary" onClick={this.searchClick} disabled={!props.searchTerm}>Search</button>
+        <button className="btn btn-primary" onClick={this.searchClick} disabled={!this.state.searchTerm}>Search</button>
       </div>
     );
   }

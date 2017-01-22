@@ -1,8 +1,7 @@
 import { ACTIONS } from 'shared/const';
 import { fetchJSON } from 'shared/fetch';
 import config from 'config';
-import { setActiveStock } from '../stocks/stockActions';
-import { setRequestingStatus } from 'shared/sharedActions';
+import { stockActions, sharedActions } from 'actions';
 
 export function searchTermChanged(value) {
   return {
@@ -27,7 +26,7 @@ export function searchAsyncComplete(searchTerm, stock) {
 
 export function searchAsync(searchTerm) {  
   return (dispatch) => {
-    dispatch(setRequestingStatus(true));
+    dispatch(sharedActions.setRequestingStatus(true));
     let cleanSearchTerm;
     if (searchTerm) {
       cleanSearchTerm = searchTerm.toUpperCase();
@@ -38,8 +37,8 @@ export function searchAsync(searchTerm) {
       .then((stock) => {
         // dispatch to inform of new data
         dispatch(searchAsyncComplete(cleanSearchTerm, stock));
-        dispatch(setActiveStock(cleanSearchTerm, stock));
-        dispatch(setRequestingStatus(false));
+        dispatch(stockActions.setActiveStock(cleanSearchTerm, stock));
+        dispatch(sharedActions.setRequestingStatus(false));
       });
   };
 }

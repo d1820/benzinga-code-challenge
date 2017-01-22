@@ -1,4 +1,7 @@
+
 import { ACTIONS } from 'shared/const';
+import { sessionManager } from '../../shared/sessionManager';
+import { createStockItem } from './stockFactory';
 
 
 export function setActiveStock(searchTerm, stock) {
@@ -12,13 +15,29 @@ export function setActiveStock(searchTerm, stock) {
   };
 }
 
-export function buyStock(stock, quantity) {
+export function buyStockComplete(updatedPortfolio) {
   return {
-    type: ACTIONS.BUY_STOCK,
-    stock,
-    quantity
+    type: ACTIONS.BUY_STOCK_COMPLETE,
+    updatedPortfolio
   };
 }
+
+export function buyStock(stock, quantity) {
+  return function (dispatch, getState) {
+    const state = getState();
+
+    const totalcost = quantity * stock.askPrice;
+    const updatedPortfolio = Object.assign({}, state, {
+      portfolio: {
+        cash: state.stocks.portfolio.cash - totalcost,
+        myStocks: [...state.stocks.portfolio.myStocks, createStockItem(stock, quantity)]
+      }
+    });
+    sessionManager.save('portfolio', updatedPortfolio);
+    dispatch(buyStockComplete(updatedPortfolio));
+  };
+}
+
 
 
 export function sellStock(stock, quantity) {
@@ -26,5 +45,21 @@ export function sellStock(stock, quantity) {
     type: ACTIONS.SELL_STOCK,
     stock,
     quantity
+  };
+}
+
+export function loadPortfolioComplete(portfolio) {
+  return {
+    type: ACTIONS.LOAD_PORTFOLIO_COMPLETE,
+    portfolio
+  };
+}
+
+export function loadPortfolioAsync() {
+  return function (dispatch) {
+    const currentPortfolio = sessionManager.load('portfolio');
+    if (currentPortfolio) {
+      dispatch(loadPortfolioComplete(currentPortfolio));
+    }
   };
 }

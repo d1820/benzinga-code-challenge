@@ -17,17 +17,22 @@
     "react/forbid-prop-types": ["off"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "no-underscore-dangle": [ "off", { "allowAfterThis": true }],
+    "arrow-body-style": "off",
     "import/no-extraneous-dependencies": ["warn"],
     "import/prefer-default-export": ["warn"],
+    "import/extensions": "off",
+    "class-methods-use-this": "off",
     "import/no-unresolved": ["error", {
         "ignore": [
           "config",
           "components/",
           "stores/",
           "actions/",
+          "actions",
           "sources/",
           "styles/",
-          "images/"
+          "images/",
+          "shared/"
         ]
     }]
   }

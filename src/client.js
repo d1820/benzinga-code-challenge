@@ -2,10 +2,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import 'shared';
+import 'shared/index';
+import { stockActions } from 'actions';
 import reduxStore from 'stores/reduxStore';
 import App from './components/App';
-
 
 
 const store = reduxStore();
@@ -32,3 +32,6 @@ if (module.hot) {
     );
   });
 }
+
+//kickoff the first dispatch to get my portfolio
+store.dispatch(stockActions.loadPortfolioAsync());

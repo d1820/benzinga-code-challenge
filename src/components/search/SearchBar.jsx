@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
+import { searchActions } from 'actions';
 import component from './SearchBarView';
-import { searchAsync, searchTermChanged } from './searchActions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    searchTerm: state.search.searchTerm
+    searchTerm: state.search.searchTerm,
+    ...ownProps
   };
 };
 
@@ -14,11 +15,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       if (!searchTerm) {
         return;
       }
-      dispatch(searchAsync(searchTerm));
+      dispatch(searchActions.searchAsync(searchTerm));
     },
     onPropertyChanged: (value) => {
-      dispatch(searchTermChanged(value));
-    }
+      dispatch(searchActions.searchTermChanged(value));
+    },
+    ...ownProps
   };
 };
 
