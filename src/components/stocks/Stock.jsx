@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onPropertyChanged: (value) => {      
-      console.log(value);
+      console.log("quantity: " + value);
       //dispatch(searchTermChanged(value));
     },
     onBuyClick: (stock, quantity) => {

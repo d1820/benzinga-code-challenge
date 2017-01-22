@@ -18,7 +18,6 @@ class StockView extends React.Component {
     };
   }
   setQuantity(e) {
-    console.log(e.target.value);
     this.setState({
       quantity: e.target.value
     });
@@ -68,12 +67,14 @@ class StockView extends React.Component {
       </div>
     );
   }
+  renderPortfolio() {
+
+  }
   renderMyStocks(stocks) {
     console.log('mystocks: ' + stocks);
   }
   render() {
     const props = this.props;
-    console.log(props);
     let children = null;
     if (props.stock) {
       children = this.renderStock(props);
@@ -90,11 +91,11 @@ class StockView extends React.Component {
 }
 StockView.propTypes = {
   stock: PropTypes.object,
-  portfolio: PropTypes.object,
+  portfolio: PropTypes.object.isRequired,
   onBuyClick: PropTypes.func.isRequired,
   onSellClick: PropTypes.func.isRequired
 };
 StockView.defaultProps = {
-  stock: null
+  stock: null,
 };
 export default StockView;

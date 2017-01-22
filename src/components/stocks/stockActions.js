@@ -22,9 +22,9 @@ export function buyStock(stock, quantity) {
 
 
 export function sellStock(stock, quantity) {
-  return (dispatch, getState) => {
-    //check if can sell stock
-    let state = getState();
-    console.log(state);
+  return {
+    type: ACTIONS.SELL_STOCK,
+    stock,
+    quantity
   };
 }

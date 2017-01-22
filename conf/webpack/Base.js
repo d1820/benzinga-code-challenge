@@ -91,7 +91,7 @@ class WebpackBaseConfig {
             target: 'http://data.benzinga.com/',
             secure: false,
             changeOrigin: true,
-            pathRewrite: {'^/api' : '/rest/richquoteDelayed'}
+            pathRewrite: {'^/api/stocks' : '/rest/richquoteDelayed'}
           }
         }
       },

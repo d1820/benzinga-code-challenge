@@ -1,5 +1,6 @@
 import { ACTIONS } from 'shared/const';
 import { fetchJSON } from 'shared/fetch';
+import config from 'config';
 import { setActiveStock } from '../stocks/stockActions';
 import { setRequestingStatus } from 'shared/sharedActions';
 
@@ -33,9 +34,8 @@ export function searchAsync(searchTerm) {
     } else {
       return null;
     }
-    return fetchJSON(`/api/?symbols=${cleanSearchTerm}`)
+    return fetchJSON(`${config.apiHostUrl}/api/stocks?symbols=${cleanSearchTerm}`)
       .then((stock) => {
-        console.log(stock);
         // dispatch to inform of new data
         dispatch(searchAsyncComplete(cleanSearchTerm, stock));
         dispatch(setActiveStock(cleanSearchTerm, stock));
