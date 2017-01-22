@@ -17,6 +17,7 @@ function _parseJson(response) {
 export function fetchJSON(url, options) {
   const _options = {
     method: 'get',
+    mode: 'cors',
     header: new Headers({
       'Content-Type': 'application/json'
     })

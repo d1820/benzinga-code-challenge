@@ -14,7 +14,7 @@ app.listen(3000, () => {
   console.log('Example app listening on port 3000!');
 });
 
-app.get('/stocks', (req, res) => {
+app.get('/api/stocks', (req, res) => {
   http.get('http://data.benzinga.com/rest/richquoteDelayed?symbols=' + req.query.symbol, (resp) => {
     let body = '';
     resp.on('data', (chunk) => {
