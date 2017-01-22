@@ -1,0 +1,1 @@
+// "start": "concurrently \"cd server && npm start \" \"npm run serve:dev\" ",

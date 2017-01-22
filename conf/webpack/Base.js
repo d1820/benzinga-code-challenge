@@ -88,9 +88,10 @@ class WebpackBaseConfig {
         port: 3001,
         proxy: {
           '/api': {
-            target: 'http://localhost:3000/',
+            target: 'http://data.benzinga.com/',
             secure: false,
-            pathRewrite: {'^/api' : ''}
+            changeOrigin: true,
+            pathRewrite: {'^/api' : '/rest/richquoteDelayed'}
           }
         }
       },

@@ -11,9 +11,12 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onSearchClick: (searchTerm) => {
+      if (!searchTerm) {
+        return;
+      }
       dispatch(searchAsync(searchTerm));
     },
-    onPropertyChanged: (value) => {      
+    onPropertyChanged: (value) => {
       dispatch(searchTermChanged(value));
     }
   };

@@ -1,5 +1,8 @@
 import React from 'react';
+import { PropTypes } from 'react';
+import StockValidator from './stockValidators';
 import './stocks.less';
+
 
 class StockView extends React.Component {
   constructor(props) {
@@ -8,14 +11,43 @@ class StockView extends React.Component {
     // This binding is necessary to make `this` work in the callback
     this.buyClick = this.buyClick.bind(this);
     this.sellClick = this.sellClick.bind(this);
+    this.setQuantity = this.setQuantity.bind(this);
+    this.state = {
+      quantity: '',
+      error: null
+    };
+  }
+  setQuantity(e) {
+    console.log(e.target.value);
+    this.setState({
+      quantity: e.target.value
+    });
+
   }
   buyClick() {
-    // this.props.onSearchClick(this.props.searchTerm);
-    console.log('d');
+    const props = this.props;
+    if (!this.state.quantity) {
+      return;
+    }
+    const errorMessage = StockValidator.validate(this.props.portfolio, props.stock, this.state.quantity);
+    if (errorMessage) {
+      this.setState({
+        error: errorMessage
+      });
+      return;
+    }
+    this.props.onBuyClick(props.stock, this.state.quantity);
+    this.setState({
+      quantity: '',
+      error: null
+    });
+
   }
   sellClick() {
-    // this.props.onSearchClick(this.props.searchTerm);
-    console.log('f;');
+    this.props.onSellClick(this.props.stock, this.state.quantity);
+    this.setState({
+      quantity: ''
+    });
   }
   renderError(props) {
     return (
@@ -28,22 +60,27 @@ class StockView extends React.Component {
         <h2>{props.stock.symbol}</h2>
         <div className="form-group">
           <label htmlFor="itemtitle">Amount</label>
-          <input type="text" id="bnuysellamount" className="form-control" placeholder="Quantity" onChange={(evt) => { props.onPropertyChanged(evt.target.value); } } />
+          <input type="text" id="bnuysellamount" className="form-control" placeholder="Quantity" value={this.state.quantity} onChange={this.setQuantity} />
         </div>
         <button className="btn btn-primary" onClick={this.buyClick}>Buy</button>
         <button className="btn btn-primary" onClick={this.sellClick}>Sell</button>
+        <div>{this.state.error}</div>
       </div>
     );
   }
+  renderMyStocks(stocks) {
+    console.log('mystocks: ' + stocks);
+  }
   render() {
     const props = this.props;
+    console.log(props);
     let children = null;
     if (props.stock) {
       children = this.renderStock(props);
     } else if (props.hasSearchError) {
       children = this.renderError(props);
     }
-
+    const mystocks = this.renderMyStocks(props.portfolio.myStocks);
     return (
       <div>
         {children}
@@ -52,6 +89,12 @@ class StockView extends React.Component {
   }
 }
 StockView.propTypes = {
-
+  stock: PropTypes.object,
+  portfolio: PropTypes.object,
+  onBuyClick: PropTypes.func.isRequired,
+  onSellClick: PropTypes.func.isRequired
+};
+StockView.defaultProps = {
+  stock: null
 };
 export default StockView;

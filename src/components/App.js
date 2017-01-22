@@ -3,6 +3,7 @@ import store2 from 'store2';
 import YeomanImage from './YeomanImage';
 import SearchBar from 'components/search/SearchBar';
 import Stock from 'components/stocks/Stock';
+import Wait from 'shared/components/wait/Wait';
 import './app.less';
 
 class AppComponent extends React.Component {
@@ -14,9 +15,7 @@ class AppComponent extends React.Component {
         <YeomanImage />
         <SearchBar></SearchBar>
         <Stock></Stock>
-        <div className="notice">
-          Please edit <code>src/components/App.js</code> to get started!
-        </div>
+        <Wait></Wait>
       </div>
     );
   }

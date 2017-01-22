@@ -11,3 +11,20 @@ export function setActiveStock(searchTerm, stock) {
     stock: stockItem
   };
 }
+
+export function buyStock(stock, quantity) {
+  return {
+    type: ACTIONS.BUY_STOCK,
+    stock,
+    quantity
+  };
+}
+
+
+export function sellStock(stock, quantity) {
+  return (dispatch, getState) => {
+    //check if can sell stock
+    let state = getState();
+    console.log(state);
+  };
+}

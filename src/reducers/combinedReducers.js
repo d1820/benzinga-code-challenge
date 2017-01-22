@@ -2,10 +2,12 @@
 import { combineReducers } from 'redux';
 import search from 'components/search/searchReducer';
 import stocks from 'components/stocks/stockReducer';
+import shared from 'shared/sharedReducer';
 
 const reducers = {
   search,
-  stocks
+  stocks,
+  shared
 };
 const combinedReducers = combineReducers(reducers);
 module.exports = combinedReducers;

@@ -1,7 +1,7 @@
 import { ACTIONS } from 'shared/const';
 import { fetchJSON } from 'shared/fetch';
 import { setActiveStock } from '../stocks/stockActions';
-
+import { setRequestingStatus } from 'shared/sharedActions';
 
 export function searchTermChanged(value) {
   return {
@@ -24,26 +24,22 @@ export function searchAsyncComplete(searchTerm, stock) {
   };
 }
 
-export function searchAsync(searchTerm) {
+export function searchAsync(searchTerm) {  
   return (dispatch) => {
-    // dispatch to update isrefreshing flag
-    // dispatch(sharedActions.setProcessingStateAction(true));
+    dispatch(setRequestingStatus(true));
     let cleanSearchTerm;
     if (searchTerm) {
       cleanSearchTerm = searchTerm.toUpperCase();
     } else {
       return null;
     }
-    return fetchJSON(`/api/stocks/${cleanSearchTerm}`)
+    return fetchJSON(`/api/?symbols=${cleanSearchTerm}`)
       .then((stock) => {
         console.log(stock);
         // dispatch to inform of new data
-        if (!stock[cleanSearchTerm]) {
-          dispatch(searchAsyncComplete(cleanSearchTerm, stock));
-        } else {
-          dispatch(setActiveStock(cleanSearchTerm, stock));
-        }
-        // dispatch(sharedActions.setProcessingStateAction(false));
+        dispatch(searchAsyncComplete(cleanSearchTerm, stock));
+        dispatch(setActiveStock(cleanSearchTerm, stock));
+        dispatch(setRequestingStatus(false));
       });
   };
 }

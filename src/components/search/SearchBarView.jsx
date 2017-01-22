@@ -23,7 +23,7 @@ class SearchBarView extends React.Component {
           <input type="text" id="itemtitle" className="form-control" placeholder="Title" value={props.searchTerm} onChange={(evt) => { props.onPropertyChanged(evt.target.value); } } />
         </div>
 
-        <button className="btn btn-primary" onClick={this.searchClick}>Search</button>
+        <button className="btn btn-primary" onClick={this.searchClick} disabled={!props.searchTerm}>Search</button>
       </div>
     );
   }
