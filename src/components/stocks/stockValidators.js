@@ -2,6 +2,9 @@
 export default class StockValidator {
 
   static validateBuy(portfolio, stock, quantity) {
+    if (quantity < 1) {
+      return 'Quantity must be greater than 0';
+    }
     const match = portfolio.myStocks.find((item) => {
       return item.symbol.toUpperCase() === stock.symbol.toUpperCase();
     });
@@ -16,6 +19,9 @@ export default class StockValidator {
   }
 
   static validateSell(portfolio, stock, quantity) {
+    if (quantity < 1) {
+      return 'Quantity must be greater than 0';
+    }
     const match = portfolio.myStocks.find((item) => {
       return item.symbol.toUpperCase() === stock.symbol.toUpperCase();
     });

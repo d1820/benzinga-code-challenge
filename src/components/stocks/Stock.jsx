@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { stockActions } from 'actions';
+import { stockActions, searchActions } from 'actions';
 import component from './StockView';
 
 
@@ -23,6 +23,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onSellClick: (stock, quantity) => {
       dispatch(stockActions.sellStock(stock, quantity));
+    },
+    onViewClick: (symbol) => {
+      //dispatch(searchActions.searchTermChanged(symbol));
+      dispatch(searchActions.searchAsync(symbol));
     }
   };
 };

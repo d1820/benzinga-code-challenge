@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import StockValidator from './stockValidators';
+import PortfolioDetailView from './PortfolioDetailView';
+import StockDetailView from './StockDetailView';
+import StockSearchErrorView from './StockSearchErrorView';
 import './stocks.less';
 
 
@@ -10,43 +13,36 @@ class StockView extends Component {
     // This binding is necessary to make `this` work in the callback
     this.buyClick = this.buyClick.bind(this);
     this.sellClick = this.sellClick.bind(this);
-    this.setQuantity = this.setQuantity.bind(this);
+    this.viewStockClick = this.viewStockClick.bind(this);
     this.state = {
-      quantity: '',
       error: null
     };
   }
-  setQuantity(e) {
-    this.setState({
-      quantity: e.target.value
-    });
-
-  }
-  buyClick() {
+  buyClick(quantity) {
     const props = this.props;
-    if (!this.state.quantity) {
+    if (!quantity) {
       return;
     }
-    const errorMessage = StockValidator.validateBuy(this.props.portfolio, props.stock, this.state.quantity);
+    const errorMessage = StockValidator.validateBuy(this.props.portfolio, props.stock, quantity);
     if (errorMessage) {
       this.setState({
         error: errorMessage
       });
       return;
     }
-    this.props.onBuyClick(props.stock, this.state.quantity);
+    this.props.onBuyClick(props.stock, quantity);
     this.setState({
       quantity: '',
       error: null
     });
 
   }
-  sellClick() {
+  sellClick(quantity) {
     const props = this.props;
-    if (!this.state.quantity) {
+    if (!quantity) {
       return;
     }
-    const errorMessage = StockValidator.validateSell(this.props.portfolio, props.stock, this.state.quantity);
+    const errorMessage = StockValidator.validateSell(this.props.portfolio, props.stock, quantity);
     if (errorMessage) {
       this.setState({
         error: errorMessage
@@ -54,49 +50,23 @@ class StockView extends Component {
       return;
     }
 
-    this.props.onSellClick(this.props.stock, this.state.quantity);
+    this.props.onSellClick(this.props.stock, quantity);
     this.setState({
       quantity: ''
     });
   }
-  renderError(props) {
-    return (
-      <div>ERROR {props.searchError.message}</div>
-    );
+  viewStockClick(symbol) {
+    this.props.onViewClick(symbol);
   }
-  renderStock(props) {
-    return (
-      <div>
-        <h2>{props.stock.symbol}</h2>
-        <div className="form-group">
-          <label htmlFor="itemtitle">Amount</label>
-          <input type="text" id="bnuysellamount" className="form-control" placeholder="Quantity" value={this.state.quantity} onChange={this.setQuantity} />
-        </div>
-        <button className="btn btn-primary" onClick={this.buyClick}>Buy</button>
-        <button className="btn btn-primary" onClick={this.sellClick}>Sell</button>
-        <div>{this.state.error}</div>
-      </div>
-    );
-  }
-  renderPortfolio() {
 
-  }
-  renderMyStocks(stocks) {
-    console.log('mystocks: ' + stocks);
-    return null;
-  }
   render() {
     const props = this.props;
-    let children = null;
-    if (props.stock) {
-      children = this.renderStock(props);
-    } else if (props.hasSearchError) {
-      children = this.renderError(props);
-    }
-    const mystocks = this.renderMyStocks(props.portfolio.myStocks);
+    const errors = [(props.searchError ? props.searchError.message : null), this.state.error];
     return (
-      <div>
-        {children}
+      <div className="stock-container">
+        <StockDetailView stock={props.stock} buyClick={this.buyClick} sellClick={this.sellClick} />
+        <PortfolioDetailView onViewClick={this.viewStockClick} stocks={props.portfolio.myStocks} />
+        <StockSearchErrorView errors={errors} />
       </div>
     );
   }
@@ -105,7 +75,8 @@ StockView.propTypes = {
   stock: PropTypes.object,
   portfolio: PropTypes.object.isRequired,
   onBuyClick: PropTypes.func.isRequired,
-  onSellClick: PropTypes.func.isRequired
+  onSellClick: PropTypes.func.isRequired,
+  onViewClick: PropTypes.func.isRequired
 };
 StockView.defaultProps = {
   stock: null,
