@@ -65,7 +65,7 @@ class StockView extends Component {
     return (
       <div className="stock-container">
         <StockDetailView stock={props.stock} buyClick={this.buyClick} sellClick={this.sellClick} />
-        <PortfolioDetailView onViewClick={this.viewStockClick} stocks={props.portfolio.myStocks} />
+        <PortfolioDetailView availableCash={props.portfolio.cash} onViewClick={this.viewStockClick} stocks={props.portfolio.myStocks} />
         <StockSearchErrorView errors={errors} />
       </div>
     );
