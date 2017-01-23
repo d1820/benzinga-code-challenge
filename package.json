@@ -7,7 +7,7 @@
   "scripts": {
     "build": "webpack",
     "clean": "rimraf dist/*",
-    "copy": "copyfiles -f ./src/index.html ./dist && copyfiles -u 1 \"./src/static/**\" ./dist",
+    "copy": "copyfiles -f ./src/index.php ./dist && copyfiles -f ./src/index.html ./dist && copyfiles -u 1 \"./src/static/**\" ./dist",
     "dist": "npm run clean && npm run copy && webpack --progress --bail --env dist -p",
     "lint": "eslint ./src",
     "posttest": "npm run lint",

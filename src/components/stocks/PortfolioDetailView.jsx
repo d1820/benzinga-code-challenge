@@ -33,14 +33,20 @@ class PortfolioDetailView extends Component {
     });
     return myStockList;
   }
+  renderEmptyRow() {
+    return (
+      <tr key="emptyRow">
+        <td colSpan="4" className=" col-md-12">No stocks found in portfolio</td>
+      </tr>
+    );
+  }
   render() {
-    const mystocks = this.renderMyStocks(this.props.stocks);
+    let mystocks = this.renderMyStocks(this.props.stocks);
     let mystocksHeader = null;
-    if (mystocks && mystocks.length > 0) {
-      mystocksHeader = this.renderMyStocksHeader();
+    mystocksHeader = this.renderMyStocksHeader();
+    if (mystocks && mystocks.length === 0) {
+      mystocks = this.renderEmptyRow();
     }
-
-
     return (
       <div className="mystock-container">
         <div className="row header">

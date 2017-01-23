@@ -91,7 +91,6 @@ export function loadPortfolioComplete(portfolio) {
 export function loadPortfolioAsync() {
   return function (dispatch) {
     const currentPortfolio = sessionManager.load(SESSION.PORTFOLIO);
-    console.log(currentPortfolio);
     if (currentPortfolio) {
       dispatch(loadPortfolioComplete(currentPortfolio));
     }

@@ -10,12 +10,15 @@ export function searchTermChanged(value) {
   };
 }
 
-export function searchAsyncComplete(searchTerm, stock) {
+export function searchAsyncComplete(searchTerm, stock, requestError) {
   let isError = false;
   let error = null;
-  if (!stock[searchTerm]) {
+  if (stock && !stock[searchTerm]) {
     isError = true;
     error = stock.null.error;
+  } else if (requestError) {
+    isError = true;
+    error = requestError;
   }
   return {
     type: ACTIONS.SEARCH_COMPLETE,
@@ -24,7 +27,8 @@ export function searchAsyncComplete(searchTerm, stock) {
   };
 }
 
-export function searchAsync(searchTerm) {  
+export function searchAsync(searchTerm) {
+  const configlocal = config;
   return (dispatch) => {
     dispatch(sharedActions.setRequestingStatus(true));
     let cleanSearchTerm;
@@ -33,12 +37,15 @@ export function searchAsync(searchTerm) {
     } else {
       return null;
     }
-    return fetchJSON(`${config.apiHostUrl}/api/stocks?symbols=${cleanSearchTerm}`)
+    const url = `${configlocal.apiHostUrl}/api/stocks?symbol=${cleanSearchTerm}`;
+    return fetchJSON(url)
       .then((stock) => {
         // dispatch to inform of new data
-        dispatch(searchAsyncComplete(cleanSearchTerm, stock));
+        dispatch(searchAsyncComplete(cleanSearchTerm, stock, null));
         dispatch(stockActions.setActiveStock(cleanSearchTerm, stock));
         dispatch(sharedActions.setRequestingStatus(false));
+      }).catch((ex) => {
+        dispatch(searchAsyncComplete(cleanSearchTerm, null, `Search Request Failed: ${ex.message}`));
       });
   };
 }
