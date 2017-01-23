@@ -9,10 +9,18 @@ class AppComponent extends React.Component {
 
   render() {
     return (
-      <div className="index">
-        <YeomanImage />
-        <SearchBar />
-        <Stock />
+      <div className="container index ">
+        <div className="row">
+          <SearchBar />
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <Stock />
+          </div>
+        </div>
+        <div className="created-by">
+          Code Challenge 2017 - <a href="https://www.linkedin.com/in/danturco1" rel="noopener noreferrer" target="_blank">Dan Turco</a>
+        </div>
         <Wait />
       </div>
     );

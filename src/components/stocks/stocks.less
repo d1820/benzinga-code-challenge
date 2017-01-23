@@ -1,13 +1,54 @@
 .stock-container {
+  padding-top: 40px;
   .mystock-container {
+    padding: 10px;
     .header {
       padding-bottom: 20px;
-    }
-    .col-height {
-      line-height: 35px
+      font-size: 1.5em;
     }
     .total-paid-info {
       cursor: help;
+    }
+  }
+  .stock-table {
+    border: 1px solid #ddd;
+    thead {
+      font-size: 1.2em;
+      border-bottom: 2px solid #ddd;
+    }
+    tbody > tr > td {
+      border-right: 1px solid #ddd;
+      border-top: none;
+    }
+  }
+  .stock-detail-container {
+    h3 {
+      margin-top: 8px;
+      padding-bottom: 17px;
+    }
+    .form-inline {
+      input {
+        margin-right: 8px;
+      }
+      button {
+        width: 75px;
+        margin-right: 8px;
+        &:last-of-type {
+          margin-right: 0
+        }
+      }
+    }
+  }
+  .error-container {
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      li {
+        text-align: center;
+        color: red;
+        font-size: 1.5em;
+      }
     }
   }
 }

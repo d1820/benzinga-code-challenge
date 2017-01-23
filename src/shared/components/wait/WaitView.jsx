@@ -10,7 +10,7 @@ class WaitView extends React.Component {
         <div className="content">
           <h4>{props.waitText}</h4>
           <div className="center">
-            <Loading type="spin" color="#e3e3e3" delay={100} />
+            <Loading type="spin" color="#e3e3e3" width={25} height={25} delay={100} />
           </div>
         </div>
       </div>

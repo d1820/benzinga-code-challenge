@@ -28,7 +28,7 @@ export default class StockValidator {
     if (!match) {
       return `Stock ${stock.name} was not found in portfolio`;
     }
-    const cost = quantity * stock.askPrice;
+    const cost = quantity * stock.bidPrice;
     if (match.quantity < quantity) {
       return `Cannot sell more shares of ${stock.name} then owned.`;
     }

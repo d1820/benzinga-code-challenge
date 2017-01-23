@@ -52,7 +52,8 @@ class StockView extends Component {
 
     this.props.onSellClick(this.props.stock, quantity);
     this.setState({
-      quantity: ''
+      quantity: '',
+      error: null
     });
   }
   viewStockClick(symbol) {
@@ -63,10 +64,22 @@ class StockView extends Component {
     const props = this.props;
     const errors = [(props.searchError ? props.searchError.message : null), this.state.error];
     return (
-      <div className="stock-container">
-        <StockDetailView stock={props.stock} buyClick={this.buyClick} sellClick={this.sellClick} />
-        <PortfolioDetailView availableCash={props.portfolio.cash} onViewClick={this.viewStockClick} stocks={props.portfolio.myStocks} />
-        <StockSearchErrorView errors={errors} />
+      <div className=" stock-container">
+        <div className="row">
+
+          <div className="col-md-4">
+            <div className="row">
+              <StockDetailView stock={props.stock} buyClick={this.buyClick} sellClick={this.sellClick} />
+            </div>
+
+          </div>
+          <div className="col-md-8">
+            <PortfolioDetailView availableCash={props.portfolio.cash} onViewClick={this.viewStockClick} stocks={props.portfolio.myStocks} />
+          </div>
+        </div>
+        <div className="row">
+          <StockSearchErrorView errors={errors} />
+        </div>
       </div>
     );
   }

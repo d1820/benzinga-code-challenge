@@ -25,7 +25,7 @@ class SearchBarView extends Component {
     const props = this.props;
     return (
       <div className="search-container row">
-        <div className="col-md-8 text-left">Simple Stock Exchange</div>
+        <div className="col-md-8 text-left"><h3>Simple Stock Exchange</h3></div>
         <div className="col-md-4">
           <div className="input-group">
             <span className="input-group-addon"><span className="glyphicon glyphicon-search"></span></span>

@@ -36,12 +36,29 @@ class StockDetailView extends Component {
     const props = this.props;
     return (
       <div className="stock-detail-container">
-        <h2>{stock.symbol}</h2>
-        <div className="form-group">
-          <input type="text" id="bnuysellamount" className="form-control" placeholder="Quantity" value={this.state.quantity} onChange={this.setQuantity} />
+        <h3>{stock.name} ({stock.symbol})</h3>
+
+        <table className="table stock-table">
+          <thead>
+            <tr>
+              <td className=" text-center">Bid</td>
+              <td className=" text-center">Ask</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className=" text-center">{stock.bidPrice.formatMoney()}</td>
+              <td className=" text-center">{stock.askPrice.formatMoney()}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div className="form-inline">
+          <div className="form-group">
+            <input type="text" id="bnuysellamount" className="form-control" placeholder="Quantity" value={this.state.quantity} onChange={this.setQuantity} />
+          </div>
+          <button className="btn btn-primary" onClick={this.onBuy} disabled={!this.state.quantity}>Buy</button>
+          <button className="btn btn-primary" onClick={this.onSell} disabled={!this.state.quantity}>Sell</button>
         </div>
-        <button className="btn btn-primary" onClick={this.onBuy} disabled={!this.state.quantity}>Buy</button>
-        <button className="btn btn-primary" onClick={this.onSell} disabled={!this.state.quantity}>Sell</button>
       </div>
     );
   }

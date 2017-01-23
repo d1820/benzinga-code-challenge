@@ -4,45 +4,57 @@ import React, { Component, PropTypes } from 'react';
 class PortfolioDetailView extends Component {
   renderMyStocksHeader() {
     return (
-      <div className="row" key="header">
-        <div className="col-md-3 text-left">Company</div>
-        <div className="col-md-3">Quantity</div>
-        <div className="col-md-3">Price Paid</div>
-        <div className="col-md-3">&nbsp;</div>
-      </div>
+
+      <tr key="header">
+        <td >Company</td>
+        <td className=" text-center" >Quantity</td>
+        <td className=" text-center" >Price Paid</td>
+        <td >&nbsp;</td>
+      </tr>
     );
   }
   renderMyStocks(stocks) {
     if (!stocks) return null;
     const props = this.props;
     const myStockList = [];
-    if (stocks.length > 0) {
-      myStockList.push(this.renderMyStocksHeader());
-    }
+
     stocks.forEach(function (item, index) {
       const title = `Price per share: ${item.price}`;
       myStockList.push((
-        <div className="row" key={item.symbol}>
-          <div className="col-md-3 text-left col-height">{item.name} ({item.symbol})</div>
-          <div className="col-md-3  col-height">{item.quantity}</div>
-          <div className="col-md-3  col-height" >{item.total.formatMoney()}&nbsp;&nbsp;<span aria-hidden="true" title={title} className="total-paid-info glyphicon glyphicon-info-sign"></span></div>
-          <div className="col-md-3  col-height">
+        <tr key={item.symbol}>
+          <td className=" col-md-5">{item.name} ({item.symbol})</td>
+          <td className=" text-center  col-md-2">{item.quantity}</td>
+          <td className=" text-center  col-md-3" >{item.total.formatMoney()}&nbsp;&nbsp;<span aria-hidden="true" title={title} className="total-paid-info glyphicon glyphicon-info-sign"></span></td>
+          <td className=" text-right col-md-2">
             <button className="btn btn-info" onClick={() => props.onViewClick(item.symbol)}>View Stock</button>
-          </div>
-        </div>
+          </td>
+        </tr>
       ));
     });
     return myStockList;
   }
   render() {
     const mystocks = this.renderMyStocks(this.props.stocks);
+    let mystocksHeader = null;
+    if (mystocks && mystocks.length > 0) {
+      mystocksHeader = this.renderMyStocksHeader();
+    }
+
+
     return (
       <div className="mystock-container">
         <div className="row header">
           <div className="col-md-6 text-left">Current Portfolio</div>
-          <div className="col-md-6 test-right">{this.props.availableCash.formatMoney(2)}</div>
+          <div className="col-md-6 text-right">Cash: {this.props.availableCash.formatMoney(2)}</div>
         </div>
-        {mystocks}
+        <table className="table stock-table">
+          <thead>
+            {mystocksHeader}
+          </thead>
+          <tbody>
+            {mystocks}
+          </tbody>
+        </table>
       </div>
     );
   }

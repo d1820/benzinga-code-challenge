@@ -49,7 +49,7 @@ export function sellStock(stock, quantity) {
   return function (dispatch, getState) {
     const state = getState().stocks;
 
-    const totalcost = (quantity * stock.askPrice).roundMoney();
+    const totalcost = (quantity * stock.bidPrice).roundMoney();
     const updatedArray = Array.from(state.portfolio.myStocks);
     let matchIndex = -1;
     //if no shares left remove
