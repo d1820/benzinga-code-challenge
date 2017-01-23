@@ -10,3 +10,6 @@ String.prototype.toObject = String.prototype.toObject || function toObject() {
   return JSON.parse(this);
 };
 
+Number.prototype.roundMoney = Number.prototype.toObject || function roundMoney(decimals = 2) {
+  return Number((Math.round(this + "e" + decimals) + "e-" + decimals));
+};

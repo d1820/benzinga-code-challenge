@@ -21,6 +21,10 @@ export default function stock(state = initialState, action) {
       return Object.assign({}, state, {
         portfolio: action.updatedPortfolio
       });
+    case ACTIONS.SELL_STOCK_COMPLETE:
+      return Object.assign({}, state, {
+        portfolio: action.updatedPortfolio
+      });
     case ACTIONS.LOAD_PORTFOLIO_COMPLETE:
       return Object.assign({}, state, {
         portfolio: action.portfolio

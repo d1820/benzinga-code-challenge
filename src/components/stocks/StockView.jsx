@@ -27,7 +27,7 @@ class StockView extends Component {
     if (!this.state.quantity) {
       return;
     }
-    const errorMessage = StockValidator.validate(this.props.portfolio, props.stock, this.state.quantity);
+    const errorMessage = StockValidator.validateBuy(this.props.portfolio, props.stock, this.state.quantity);
     if (errorMessage) {
       this.setState({
         error: errorMessage
@@ -42,6 +42,18 @@ class StockView extends Component {
 
   }
   sellClick() {
+    const props = this.props;
+    if (!this.state.quantity) {
+      return;
+    }
+    const errorMessage = StockValidator.validateSell(this.props.portfolio, props.stock, this.state.quantity);
+    if (errorMessage) {
+      this.setState({
+        error: errorMessage
+      });
+      return;
+    }
+
     this.props.onSellClick(this.props.stock, this.state.quantity);
     this.setState({
       quantity: ''
@@ -71,6 +83,7 @@ class StockView extends Component {
   }
   renderMyStocks(stocks) {
     console.log('mystocks: ' + stocks);
+    return null;
   }
   render() {
     const props = this.props;

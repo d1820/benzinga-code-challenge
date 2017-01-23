@@ -1,9 +1,9 @@
 
 export default class StockValidator {
 
-  static validate(portfolio, stock, quantity) {
+  static validateBuy(portfolio, stock, quantity) {
     const match = portfolio.myStocks.find((item) => {
-      return item.symbol === stock.symbol;
+      return item.symbol.toUpperCase() === stock.symbol.toUpperCase();
     });
     if (match) {
       return `Stock ${stock.name} was already purchased`;
@@ -11,6 +11,20 @@ export default class StockValidator {
     const cost = quantity * stock.askPrice;
     if (cost > portfolio.cash) {
       return `Insufficient funds to purchase ${stock.name}`;
+    }
+    return null;
+  }
+
+  static validateSell(portfolio, stock, quantity) {
+    const match = portfolio.myStocks.find((item) => {
+      return item.symbol.toUpperCase() === stock.symbol.toUpperCase();
+    });
+    if (!match) {
+      return `Stock ${stock.name} was not found in portfolio`;
+    }
+    const cost = quantity * stock.askPrice;
+    if (match.quantity < quantity) {
+      return `Cannot sell more shares of ${stock.name} then owned.`;
     }
     return null;
   }

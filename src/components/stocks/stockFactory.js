@@ -4,6 +4,6 @@ export function createStockItem(stock, quantity) {
     name: stock.name,
     price: stock.askPrice,
     total: stock.askPrice * quantity,
-    quantity
+    quantity: parseInt(quantity)
   };
 }
