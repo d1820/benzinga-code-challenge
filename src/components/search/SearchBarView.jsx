@@ -24,15 +24,17 @@ class SearchBarView extends Component {
   render() {
     const props = this.props;
     return (
-      <div>
-        <h1>Hello, {props.searchTerm}</h1>
-
-        <div className="form-group">
-          <label htmlFor="itemtitle">Search</label>
-          <input type="text" id="searchterm" className="form-control" placeholder="Symbol" value={this.state.searchTerm} onChange={this.onSearchTextChange} />
+      <div className="search-container row">
+        <div className="col-md-8 text-left">Simple Stock Exchange</div>
+        <div className="col-md-4">
+          <div className="input-group">
+            <span className="input-group-addon"><span className="glyphicon glyphicon-search"></span></span>
+            <input type="text" id="searchterm" className="form-control" aria-label="Enter Symbol" placeholder="Enter Symbol" value={this.state.searchTerm} onChange={this.onSearchTextChange} />
+            <span className="input-group-btn">
+              <button className="btn btn-primary" onClick={this.searchClick} disabled={!this.state.searchTerm}>Lookup</button>
+            </span>
+          </div>
         </div>
-
-        <button className="btn btn-primary" onClick={this.searchClick} disabled={!this.state.searchTerm}>Search</button>
       </div>
     );
   }
